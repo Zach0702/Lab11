@@ -27,12 +27,12 @@ namespace BootCampLab11
         {
             //creating loopbreaker variable
             char loopBreaker;
-            int startMenuOption;
+            //int startMenuOption;
 
             do
             {
-            
-              var movieTypeMenu = new List<string>()
+                
+                var movieTypeMenu = new List<string>()
               
             {
                 "[1]. animated",
@@ -40,31 +40,8 @@ namespace BootCampLab11
                 "[3]. horror",
                 "[4]. scifi"
             };
-                var MovieList = new List<Movie>();
-                Console.WriteLine("Would you like to add a movie to a category, or view the movies already stored in each category(enter 1 to add, enter 2 to view movies): ");
-                startMenuOption = IsValidIntEntered(Console.ReadLine());
-
-                if (startMenuOption == 1)
-                {
-
-                    //foreach loop to display menu to user 
-                    foreach (var movieType in movieTypeMenu)
-                    {
-                        Console.WriteLine(movieType);
-                    }
-                    Console.WriteLine("Which movie category would you like to add a movie in? : ");
-                    bool isInvalidInput = true;
-                    while (isInvalidInput)
-                    {
-                        if (Enum.TryParse<MovieType>(Console.ReadLine(), out MovieType userMovieType)) //if this is a valid enum
-                        {
-                            var movieList = new List<Movie>();
-                            movieList = AddMovies(userMovieType);
-                            isInvalidInput = false;
-                        }
-                    }
-                }
-                else {
+                
+             
                     //foreach loop to display menu to user 
                     foreach (var movieType in movieTypeMenu)
                     {
@@ -82,10 +59,9 @@ namespace BootCampLab11
                     {
                         if (Enum.TryParse<MovieType>(Console.ReadLine(), out MovieType userMovieType)) //if this is a valid enum
                         {
-
-                            var movieList = new List<Movie/*string*/>(); //creating new movie list to store list of movies in valid category
-                            movieList = ShowMoviesInCategory(userMovieType); //finding movies in categore
-                            var organizedMovieList = movieList.OrderBy(s => s.Title).ToList(); //organizing movies in aplhabetical order
+                        
+                       var movieList = ShowMoviesInCategory(userMovieType); //finding movies in categore
+                        var organizedMovieList = movieList.OrderBy(s => s.Title).ToList(); //organizing movies in aplhabetical order
 
                             foreach (var movie in organizedMovieList)
                             {
@@ -103,8 +79,8 @@ namespace BootCampLab11
 
                         }
                     }
-                }
-                //}
+                
+                
                 Console.WriteLine("Do you wish to continue(enter y/n): "); //ask user to if they want to continue
                 loopBreaker = IsValidLoopBreaker(Console.ReadLine()); //storing answer and if it's valid input 
 
@@ -127,37 +103,45 @@ namespace BootCampLab11
                     };
                     break;
                 case MovieType.drama:
-                    movieList = new List<Movie/*string*/>()
-                    {
-                        new Movie ("The Departed", "drama"),
-                        new Movie ("Pulp Fiction", "drama"),
-                        new Movie ("A Beautiful Mind", "drama")
-                    };
+
+
+                   var movie1 = new Movie("The Departed", "drama");
+                   var movie2 = new Movie("Pulp Fiction", "drama");
+                   var movie3 = new Movie("A Beautiful Mind", "drama");
+                    movieList.Add(movie1);
+                    movieList.Add(movie2);
+                    movieList.Add(movie3);
+                    //Console.WriteLine("Would you like to add a movie to the list?: (enter 1 to add 2 To not add): ");
+                    //int validInt = IsValidIntEntered(Console.ReadLine());
+                    //if (validInt == 1)
+                    //{
+                    //    Console.WriteLine("What is the title of the movie you want to add? ");
+                    //    string userTitle = Console.ReadLine();
+                    //    Movie userMovie = new Movie(userTitle, "drama");
+                    //    movieList.Add(userMovie);
+                    //}
+                
                     break;
                 case MovieType.horror:
                     movieList = new List<Movie/*string*/>()
                     {
-                        //"Get Out",
-                        //"Silence Of The Lambs",
-                        //"IT" This is how it was when it worked
                         new Movie ("Get Out", "horror"),
                         new Movie ("Silence Of The Lambs", "horror"),
                         new Movie ("IT", "horror")
                     };
+                    
                     break;
                 case MovieType.scifi:
                     movieList = new List<Movie/*string*/>()
                     {
-                        //"Inception",
-                        //"The Avengers",
-                        //"Minority Report"
-                        new Movie ("The Departed", "scifi"),
-                        new Movie ("Pulp Fiction", "scifi"),
-                        new Movie ("A Beautiful Mind", "scifi")
+                        new Movie ("Inception", "scifi"),
+                        new Movie ("The Avengers", "scifi"),
+                        new Movie ("Minority Report", "scifi")
                     };
                     break;
             }
             return movieList;
+
         }
         public static char IsValidLoopBreaker(string testChar)
         {
@@ -209,20 +193,38 @@ namespace BootCampLab11
             return validInt;
         }
 
-        private static List<Movie> AddMovies (MovieType movieType)
+        private static List<Movie> AddMovies(List<Movie> listOfMovies, MovieType movieType)
         {
-            var movieList = new List<Movie>();
-            movieList = ShowMoviesInCategory(movieType);
+            var movieList = listOfMovies;
+            
 
             switch (movieType)
             {
-                 
+
                 case MovieType.animated:
-                    
+
                     Console.WriteLine("What is the title of the movie");
                     string userTitle = Console.ReadLine();
                     Movie userMovie = new Movie(userTitle, "animated");
                     movieList.Add(userMovie);
+                    break;
+                case MovieType.drama:
+                    Console.WriteLine("What is the title of the movie");
+                    string userTitle1 = Console.ReadLine();
+                    Movie userMovie1 = new Movie(userTitle1, "animated");
+                    movieList.Add(userMovie1);
+                    break;
+                case MovieType.horror:
+                     Console.WriteLine("What is the title of the movie");
+                    string userTitle2 = Console.ReadLine();
+                    Movie userMovie2 = new Movie(userTitle2, "animated");
+                    movieList.Add(userMovie2);
+                    break;
+                case MovieType.scifi:
+                    Console.WriteLine("What is the title of the movie");
+                    string userTitle3 = Console.ReadLine();
+                    Movie userMovie3 = new Movie(userTitle3, "animated");
+                    movieList.Add(userMovie3);
                     break;
 
 
